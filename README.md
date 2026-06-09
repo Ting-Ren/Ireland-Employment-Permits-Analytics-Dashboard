@@ -9,6 +9,10 @@ You can do Employer Search for past sponsorship, which can be a reference when y
 The dashboard is fully deployed and accessible 24/7 in the cloud. No installation required:
 👉 **[Launch Live Ireland Employment Permits Dashboard](https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/)**
 
+## 📸 Dashboard Preview
+
+![Dashboard Preview](dashboard_preview.png)
+
 ## 🚀 Key Features
 
 * **🔍 Fuzzy Employer Group Search:** Instantly aggregate and track permit metrics for specific corporate clusters or subsidiaries (e.g., searching "Google" pulls data for *Google Ireland Limited*, *Google Cloud*, etc.) into a unified matrix view.
