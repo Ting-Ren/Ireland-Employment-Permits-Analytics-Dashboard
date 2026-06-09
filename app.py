@@ -14,7 +14,7 @@ st.markdown("Fuzzy search corporate entities or isolate records dynamically usin
 @st.cache_data
 def load_and_clean_data():
     # Absolute raw string path to avoid slash execution or spacing bugs on Windows
-    df = pd.read_excel(r"C:\Users\Ting's\Desktop\JobHunting\Stats (2021-2026)\Stats 2021-2026 onwards.xlsx")
+    df = pd.read_excel("Stats 2021-2026 onwards.xlsx")
     
     years = [2021, 2022, 2023, 2024, 2025, 2026]
     cleaned_data = []
