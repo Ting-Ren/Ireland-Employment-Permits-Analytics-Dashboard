@@ -1,8 +1,13 @@
 # 🇮🇪 Ireland Employment Permits Analytics Dashboard
 
-An interactive, data-driven Streamlit dashboard designed to analyze and track corporate visa sponsorship trends in Ireland from 2021 through 2026 (current up to May 2026). 
+An interactive, data-driven analytics platform designed to aggregate and track corporate visa sponsorship trends in Ireland from 2021 through 2026 (current up to May 2026). 
 
-This application consolidates multi-year government data into a unified interface, empowering job hunters and market analysts to bypass fragmented spreadsheets and instantly uncover hiring trajectories.
+You can do Employer Search for past sponsorship , which can be a reference when you are on the job-hunting in Ireland. By consolidating fragmented monthly government spreadsheets into a unified multi-year interface, this application empowers job hunters to evaluate historical company behavior and target resilient sponsors.
+
+## 🔗 Live Application Access
+
+The dashboard is fully deployed and accessible 24/7 in the cloud. No installation required:
+👉 **[Launch Live Ireland Employment Permits Dashboard](https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/)**
 
 ## 🚀 Key Features
 
@@ -20,12 +25,7 @@ This application consolidates multi-year government data into a unified interfac
 
 ## 📊 Data Source
 
-Data is sourced natively from the Irish government's official monthly releases. 
+Data is sourced natively from the Irish government's official monthly structural releases. 
 > 📄 **Data Courtesy of:** [Department of Enterprise, Tourism and Employment (DETE) Statistics](https://enterprise.gov.ie/en/what-we-do/workplace-and-skills/employment-permits/statistics/)
 
-## 🏃‍♂️ How to Run Locally
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
-   cd YOUR_REPO_NAME
