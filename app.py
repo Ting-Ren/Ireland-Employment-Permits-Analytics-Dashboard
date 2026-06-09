@@ -218,3 +218,14 @@ with grid_bottom:
             "Permits Issued": st.column_config.NumberColumn("Permits Issued", width="small")
         }
     )
+
+
+
+
+```python
+# Optional sidebar metadata callout
+with st.sidebar:
+    st.markdown("---")
+    st.markdown("### 🤖 Application Metadata")
+    st.caption("Product Strategy & Vision: **Ting Ren**")
+    st.caption("Core Engineering & Co-Pilot: **Gemini AI**")
