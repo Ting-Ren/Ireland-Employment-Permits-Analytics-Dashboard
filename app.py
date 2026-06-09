@@ -221,8 +221,6 @@ with grid_bottom:
 
 
 
-
-```python
 # Optional sidebar metadata callout
 with st.sidebar:
     st.markdown("---")
