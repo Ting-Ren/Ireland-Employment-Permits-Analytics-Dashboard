@@ -2,11 +2,51 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit_analytics2 as streamlit_analytics
+import uuid
+import requests
 
-# 1. Page Configuration for full edge-to-edge screen usage
+# 1. Page Configuration
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
 
+# ===================================================
+# SERVER-SIDE GA4 MEASUREMENT PROTOCOL PIPELINE
+# ===================================================
+def track_ga4_pageview():
+    """Fires a backend page_view event directly to Google, completely skipping the iframe sandbox."""
+    measurement_id = "G-09LCFTVJ24"
+    
+    # ⚠️ PASTE YOUR COPIED SECRET STRING HERE
+    api_secret = "YOUR_COPIED_API_SECRET_STRING_HERE"  
+    
+    # Initialize a clean session ID so multiple clicks by the same user don't look like new visitors
+    if "ga_client_id" not in st.session_state:
+        st.session_state.ga_client_id = str(uuid.uuid4())
+    
+    payload = {
+        "client_id": st.session_state.ga_client_id,
+        "events": [{
+            "name": "page_view",
+            "params": {
+                "page_title": "Ireland Employment Permits Dashboard",
+                "page_location": "https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/",
+                "engagement_time_msec": "1"
+            }
+        }]
+    }
+    
+    try:
+        # Fire and forget backend server post
+        requests.post(
+            f"https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}&api_secret={api_secret}",
+            json=payload,
+            timeout=3
+        )
+    except Exception:
+        pass # Fail-silent guardrail: analytics glitches should never crash your user interface
+
+# Trigger the tracking call immediately when a user hits the page
+track_ga4_pageview()
 
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
