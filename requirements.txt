@@ -2,7 +2,7 @@ plotly
 openpyxl
 pandas
 streamlit
-streamlit-analyctics2
+streamlit-analytics2
 
 
 
