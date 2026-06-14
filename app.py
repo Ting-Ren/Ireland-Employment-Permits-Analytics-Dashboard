@@ -6,20 +6,7 @@ import streamlit_analytics2 as streamlit_analytics
 # 1. Page Configuration for full edge-to-edge screen usage
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
-# ===================================================
-# LAYER 1: HEAD-INJECTED GOOGLE ANALYTICS (Bypasses Iframe Sandbox)
-# ===================================================
-st.html(
-    """
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-09LCFTVJ24"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-09LCFTVJ24');
-    </script>
-    """
-)
+
 
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
