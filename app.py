@@ -6,24 +6,7 @@ import streamlit_analytics2 as streamlit_analytics
 # 1. Page Configuration for full edge-to-edge screen usage
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
-# ===================================================
-# NATIVE INTERACTION TRACKING
-# ===================================================
-with streamlit_analytics.track():
 
-    st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
-    
-    # 🌍 UNBLOCKABLE GA4 TRACKING PIXEL 
-    # This sends a direct hit to your stream every time the page loads, bypassing the iframe sandbox completely!
-    st.markdown(
-        f'<img src="https://www.google-analytics.com/collect?v=1&tid=G-09LCFTVJ24&cid=12345&t=pageview&dp=%2Fhome&dt=Ireland%20Permits%20Dashboard" style="display:none;">',
-        unsafe_allow_html=True
-    )
-
-    st.markdown("##### 📅 *Data current as of: May 2026*")
-    st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
-    
-    # ... Rest of your data loading and chart code continues perfectly normal below ...
 
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
