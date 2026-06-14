@@ -1,27 +1,25 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import streamlit.components.v1 as components
 import streamlit_analytics2 as streamlit_analytics
 
 # 1. Page Configuration for full edge-to-edge screen usage
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
 # ===================================================
-# LAYER 1: GOOGLE ANALYTICS INTEGRATION (Invisible background script)
+# LAYER 1: HEAD-INJECTED GOOGLE ANALYTICS (Bypasses Iframe Sandbox)
 # ===================================================
-ga_code = """
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-09LCFTVJ24"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-09LCFTVJ24');
-</script>
-"""
-components.html(ga_code, height=0, width=0)
-
+st.html(
+    """
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-09LCFTVJ24"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-09LCFTVJ24');
+    </script>
+    """
+)
 
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
@@ -29,14 +27,13 @@ components.html(ga_code, height=0, width=0)
 with streamlit_analytics.track():
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
-    # Updated Subtitle displaying the maximum data timeframe dynamically
     st.markdown("##### 📅 *Data current as of: May 2026*")
     st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
 
     # 2. Dynamic Parsing Pipeline
     @st.cache_data
     def load_and_clean_data():
-        # GITHUB UPDATE: Swapped the hardcoded desktop path for a relative repository path
+        # GITHUB: Relative repository path
         df = pd.read_excel("Stats 2021-2026 onwards.xlsx")
         
         years = [2021, 2022, 2023, 2024, 2025, 2026]
@@ -85,7 +82,6 @@ with streamlit_analytics.track():
         st.error(f"Data mapping execution failed. Verify file alignment. Details: {e}")
         st.stop()
 
-
     # ==========================================
     # 1. TIMEFRAME FILTERING OPTIONS
     # ==========================================
@@ -101,7 +97,6 @@ with streamlit_analytics.track():
         global_filtered_df = df[df['Year'].isin(selected_years)]
     else:
         global_filtered_df = df.copy()
-
 
     # ==========================================
     # 2. OPTIMIZED EMPLOYER GROUP SEARCH
@@ -147,7 +142,6 @@ with streamlit_analytics.track():
                 
                 matrix_pivot['Total'] = matrix_pivot.iloc[:, 1:].sum(axis=1)
                 sorted_matrix = matrix_pivot.sort_values(by='Total', ascending=False)
-                
                 sorted_matrix.columns = [str(col) for col in sorted_matrix.columns]
                 
                 column_configs = {
@@ -168,7 +162,6 @@ with streamlit_analytics.track():
             st.warning(f"No company entries found matching '{search_query}' under the current year parameters.")
 
     st.markdown("---")
-
 
     # ==========================================
     # 3. MACRO SYSTEM OVERVIEW (MAXIMIZED VISUALS)
@@ -245,3 +238,5 @@ with streamlit_analytics.track():
         st.markdown("### 🤖 Application Metadata")
         st.caption("Product Strategy & Vision: **Ting Ren**")
         st.caption("Core Engineering & Co-Pilot: **Gemini AI**")
+
+
