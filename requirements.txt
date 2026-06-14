@@ -2,3 +2,13 @@ plotly
 openpyxl
 pandas
 streamlit
+streamlit-analyctics2
+
+
+
+
+
+
+
+
+
