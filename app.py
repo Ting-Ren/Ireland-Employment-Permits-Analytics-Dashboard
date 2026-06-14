@@ -23,14 +23,15 @@ def track_ga4_pageview():
     if "ga_client_id" not in st.session_state:
         st.session_state.ga_client_id = str(uuid.uuid4())
     
-    payload = {
+   payload = {
         "client_id": st.session_state.ga_client_id,
         "events": [{
             "name": "page_view",
             "params": {
                 "page_title": "Ireland Employment Permits Dashboard",
                 "page_location": "https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/",
-                "engagement_time_msec": "1"
+                "engagement_time_msec": "1",
+                "debug_mode": True  # <--- ADD THIS LINE TO FORCE IT INTO DEBUGVIEW!
             }
         }]
     }
