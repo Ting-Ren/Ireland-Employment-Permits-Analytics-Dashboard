@@ -1,6 +1,35 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import streamlit.components.v1 as components
+import streamlit_analytics2 as streamlit_analytics
+
+# ===================================================
+# LAYER 1: GOOGLE ANALYTICS INTEGRATION (Invisible background script)
+# ===================================================
+ga_code = """
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-09LCFTVJ24"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-09LCFTVJ24');
+</script>
+"""
+components.html(ga_code, height=0, width=0)
+
+
+# ===================================================
+# LAYER 2: KEYWORD & INTERACTION TRACKING
+# ===================================================
+with streamlit_analytics.track():
+    
+    # Your actual dashboard app starts here!
+    st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
+    
+    # ... Rest of your existing layout, filters, charts, and data grid ...
+
 
 # 1. Page Configuration for full edge-to-edge screen usage
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
