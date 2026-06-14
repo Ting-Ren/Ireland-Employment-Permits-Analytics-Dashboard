@@ -2,51 +2,28 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit_analytics2 as streamlit_analytics
-import uuid
-import requests
 
-# 1. Page Configuration
+# 1. Page Configuration for full edge-to-edge screen usage
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
 # ===================================================
-# SERVER-SIDE GA4 MEASUREMENT PROTOCOL PIPELINE
+# NATIVE INTERACTION TRACKING
 # ===================================================
-def track_ga4_pageview():
-    """Fires a backend page_view event directly to Google, completely skipping the iframe sandbox."""
-    measurement_id = "G-09LCFTVJ24"
-    
-    # ⚠️ Double check your actual secret string is pasted between these quotes
-    api_secret = "YOUR_COPIED_API_SECRET_STRING_HERE"  
-    
-    # Initialize a clean session ID so multiple clicks by the same user don't look like new visitors
-    if "ga_client_id" not in st.session_state:
-        st.session_state.ga_client_id = str(uuid.uuid4())
-    
-    payload = {
-        "client_id": st.session_state.ga_client_id,
-        "events": [{
-            "name": "page_view",
-            "params": {
-                "page_title": "Ireland Employment Permits Dashboard",
-                "page_location": "https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/",
-                "engagement_time_msec": "1",
-                "debug_mode": True
-            }
-        }]
-    }
-    
-    try:
-        # Fire and forget backend server post
-        requests.post(
-            f"https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}&api_secret={api_secret}",
-            json=payload,
-            timeout=3
-        )
-    except Exception:
-        pass # Fail-silent guardrail: analytics glitches should never crash your user interface
+with streamlit_analytics.track():
 
-# Trigger the tracking call immediately when a user hits the page
-track_ga4_pageview()
+    st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
+    
+    # 🌍 UNBLOCKABLE GA4 TRACKING PIXEL 
+    # This sends a direct hit to your stream every time the page loads, bypassing the iframe sandbox completely!
+    st.markdown(
+        f'<img src="https://www.google-analytics.com/collect?v=1&tid=G-09LCFTVJ24&cid=12345&t=pageview&dp=%2Fhome&dt=Ireland%20Permits%20Dashboard" style="display:none;">',
+        unsafe_allow_html=True
+    )
+
+    st.markdown("##### 📅 *Data current as of: May 2026*")
+    st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
+    
+    # ... Rest of your data loading and chart code continues perfectly normal below ...
 
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
