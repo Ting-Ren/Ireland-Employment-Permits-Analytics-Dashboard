@@ -8,7 +8,6 @@ import requests
 # 1. Page Configuration
 st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 
-
 # ===================================================
 # SERVER-SIDE GA4 MEASUREMENT PROTOCOL PIPELINE
 # ===================================================
@@ -16,14 +15,14 @@ def track_ga4_pageview():
     """Fires a backend page_view event directly to Google, completely skipping the iframe sandbox."""
     measurement_id = "G-09LCFTVJ24"
     
-    # ⚠️ PASTE YOUR COPIED SECRET STRING HERE
+    # ⚠️ Double check your actual secret string is pasted between these quotes
     api_secret = "YOUR_COPIED_API_SECRET_STRING_HERE"  
     
     # Initialize a clean session ID so multiple clicks by the same user don't look like new visitors
     if "ga_client_id" not in st.session_state:
         st.session_state.ga_client_id = str(uuid.uuid4())
     
-   payload = {
+    payload = {
         "client_id": st.session_state.ga_client_id,
         "events": [{
             "name": "page_view",
@@ -31,7 +30,7 @@ def track_ga4_pageview():
                 "page_title": "Ireland Employment Permits Dashboard",
                 "page_location": "https://ireland-employment-permits-analytics-dashboard-ting-ren.streamlit.app/",
                 "engagement_time_msec": "1",
-                "debug_mode": True  # <--- ADD THIS LINE TO FORCE IT INTO DEBUGVIEW!
+                "debug_mode": True
             }
         }]
     }
