@@ -13,18 +13,22 @@ st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 # ===================================================
 import json
 
-# 1. Properly unpack and format the credentials dictionary
+# 1. Properly unpack the credentials dictionary from secrets
 creds_dict = dict(st.secrets["firebase"])
 
-# 🔧 Force format the private key string to process line breaks cleanly
+# 🔧 The Ultimate Fix: Remove raw newlines, clean up fragments, and force build true PEM line breaks
 if "private_key" in creds_dict:
-    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+    raw_key = creds_dict["private_key"]
+    # Strip any literal structural line breaks or accidental double-escaped artifacts
+    clean_lines = [line.strip() for line in raw_key.split("\n") if line.strip()]
+    # Join the rows back with clean, strict newline characters
+    creds_dict["private_key"] = "\n".join(clean_lines)
 
 # 2. Dynamically write your secure secrets to the temporary server file
 with open("firebase_creds.json", "w") as f:
     json.dump(creds_dict, f)
 
-# 3. Track using the correct library argument names pointing to that file
+# 3. Track using the library parameters
 with streamlit_analytics.track(
     firestore_key_file="firebase_creds.json",
     firestore_collection_name="app_traffic"
