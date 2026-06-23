@@ -11,7 +11,10 @@ st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
 # ===================================================
-with streamlit_analytics.track(save_to_json="data/analytics_history.json"):
+with streamlit_analytics.track(
+    firestore_key_dict=st.secrets["firebase"],
+    firestore_collection="app_traffic"
+):
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
     st.markdown("##### 📅 *Data current as of: May 2026*")
