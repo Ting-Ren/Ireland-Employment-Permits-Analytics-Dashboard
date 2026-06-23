@@ -11,24 +11,21 @@ st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
 # ===================================================
+import base64
 import json
 
-# 1. Properly unpack the credentials dictionary from secrets
-creds_dict = dict(st.secrets["firebase"])
+# 1. Decode the Base64 string directly from secrets into a clean JSON dictionary
+try:
+    decoded_bytes = base64.b64decode(st.secrets["FIREBASE_BASE64"])
+    creds_dict = json.loads(decoded_bytes.decode("utf-8"))
+    
+    # 2. Write it cleanly to the temporary container file
+    with open("firebase_creds.json", "w") as f:
+        json.dump(creds_dict, f)
+except Exception as e:
+    st.error("Credential loading failed. Check your Base64 secret string.")
 
-# 🔧 The Ultimate Fix: Remove raw newlines, clean up fragments, and force build true PEM line breaks
-if "private_key" in creds_dict:
-    raw_key = creds_dict["private_key"]
-    # Strip any literal structural line breaks or accidental double-escaped artifacts
-    clean_lines = [line.strip() for line in raw_key.split("\n") if line.strip()]
-    # Join the rows back with clean, strict newline characters
-    creds_dict["private_key"] = "\n".join(clean_lines)
-
-# 2. Dynamically write your secure secrets to the temporary server file
-with open("firebase_creds.json", "w") as f:
-    json.dump(creds_dict, f)
-
-# 3. Track using the library parameters
+# 3. Initialize tracking using the verified runtime file
 with streamlit_analytics.track(
     firestore_key_file="firebase_creds.json",
     firestore_collection_name="app_traffic"
