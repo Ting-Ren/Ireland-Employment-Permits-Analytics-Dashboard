@@ -13,11 +13,18 @@ st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 # ===================================================
 import json
 
-# 1. Dynamically write your secure secrets to a temporary server file at runtime
-with open("firebase_creds.json", "w") as f:
-    json.dump(dict(st.secrets["firebase"]), f)
+# 1. Properly unpack and format the credentials dictionary
+creds_dict = dict(st.secrets["firebase"])
 
-# 2. Track using the correct library argument names pointing to that file
+# 🔧 Force format the private key string to process line breaks cleanly
+if "private_key" in creds_dict:
+    creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
+
+# 2. Dynamically write your secure secrets to the temporary server file
+with open("firebase_creds.json", "w") as f:
+    json.dump(creds_dict, f)
+
+# 3. Track using the correct library argument names pointing to that file
 with streamlit_analytics.track(
     firestore_key_file="firebase_creds.json",
     firestore_collection_name="app_traffic"
