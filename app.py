@@ -11,9 +11,16 @@ st.set_page_config(page_title="Ireland Work Permits Dashboard", layout="wide")
 # ===================================================
 # LAYER 2: KEYWORD & INTERACTION TRACKING
 # ===================================================
+import json
+
+# 1. Dynamically write your secure secrets to a temporary server file at runtime
+with open("firebase_creds.json", "w") as f:
+    json.dump(dict(st.secrets["firebase"]), f)
+
+# 2. Track using the correct library argument names pointing to that file
 with streamlit_analytics.track(
-    firestore_key_dict=st.secrets["firebase"],
-    firestore_collection="app_traffic"
+    firestore_key_file="firebase_creds.json",
+    firestore_collection_name="app_traffic"
 ):
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
