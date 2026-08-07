@@ -32,7 +32,7 @@ with streamlit_analytics.track(
 ):
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
-    st.markdown("##### 📅 *Data current as of: May 2026*")
+    st.markdown("##### 📅 *Data current as of: July 2026*")
     st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
 
     # 2. Dynamic Parsing Pipeline
