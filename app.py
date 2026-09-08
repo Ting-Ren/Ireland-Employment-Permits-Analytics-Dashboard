@@ -32,7 +32,7 @@ with streamlit_analytics.track(
 ):
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
-    st.markdown("##### 📅 *Data current as of: July 2026*")
+    st.markdown("##### 📅 *Data current as of: August 2026*")
     st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
 
     # 2. Dynamic Parsing Pipeline
@@ -103,18 +103,36 @@ with streamlit_analytics.track(
     else:
         global_filtered_df = df.copy()
 
-    # ==========================================
+# ==========================================
     # 2. OPTIMIZED EMPLOYER GROUP SEARCH
     # ==========================================
     st.markdown("## 🔍 Employer Group Search")
     
-    search_query = st.text_input(
-        "Type keyword to find all associated subsidiary entities (e.g., Google, Care, NHS, Bank):", 
-        value="", 
-        placeholder="Type here to filter...",
-        key="employer_search_input"
-    ).strip()
+    # 1. Initialize session state key if it doesn't exist
+    if "employer_search_input" not in st.session_state:
+        st.session_state["employer_search_input"] = ""
 
+    # 2. Callback function to clear search query
+    def clear_employer_search():
+        st.session_state["employer_search_input"] = ""
+
+    # 3. Create layout for input box + Clear button
+    col_input, col_clear = st.columns([6, 1])
+
+    with col_input:
+        search_query = st.text_input(
+            "Type keyword to find all associated subsidiary entities (e.g., Google, Care, NHS, Bank):", 
+            key="employer_search_input", 
+            placeholder="Type here to filter..."
+        ).strip()
+
+    with col_clear:
+        # Align button visually with the text input field
+        st.markdown("<div style='margin-top: 28px;'></div>", unsafe_allow_html=True)
+        if st.session_state["employer_search_input"]:
+            st.button("✖ Clear", on_click=clear_employer_search, help="Clear search query")
+
+    # --- YOUR EXISTING CHARTS & TABLES (KEEP UNCHANGED) ---
     if search_query:
         search_filtered_df = global_filtered_df[global_filtered_df['Employer'].str.contains(search_query, case=False, na=False)]
         
