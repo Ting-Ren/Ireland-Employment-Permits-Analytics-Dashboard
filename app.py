@@ -32,7 +32,7 @@ with streamlit_analytics.track(
 ):
 
     st.title("🇮🇪 Ireland Employment Permits Analytics Dashboard")
-    st.markdown("##### 📅 *Data current as of: August 2026*")
+    st.markdown("##### 📅 *Data current as of: September 2026*")
     st.markdown("Fuzzy search corporate entities or isolate records dynamically using column-level constraints below.")
 
     # 2. Dynamic Parsing Pipeline
@@ -121,7 +121,7 @@ with streamlit_analytics.track(
 
     with col_input:
         search_query = st.text_input(
-            "Type keyword to find all associated subsidiary entities (e.g., Google, Care, NHS, Bank):", 
+            "Type keyword to find all associated subsidiary entities (e.g., Google, Care, Bank):", 
             key="employer_search_input", 
             placeholder="Type here to filter..."
         ).strip()
